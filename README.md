@@ -18,9 +18,8 @@ DRY principles e Star Schema. É um exemplo de como um engenheiro de dados junio
 ---
 
 ##  Estrutura do Projeto
-
+```
 bike_lakehouse/ 
-
 ├── Bronze (1)/# Camada de dados brutos 
 │ └── Bronze_code.ipynb # Ingestão automatizada de arquivos CSV 
 ├── Silver/ # Camada de dados limpos e transformados 
@@ -34,7 +33,7 @@ bike_lakehouse/
 │ └── silver_sales_details.ipynb 
 └── gold/ # Camada de dados otimizados para analytics 
 └── gold.ipynb # Criação de tabelas dimensionais e de fatos
-
+```
 ---
 
 ##  Fluxo de Dados por Camada
@@ -64,7 +63,7 @@ A camada Gold cria estruturas de dados otimizadas para análise e dashboards usa
 
 #### Tabelas Dimensionais:
 Dimensão: Customers
-
+```
 SQL
 CREATE TABLE workspace.gold.customers AS
 SELECT 
@@ -73,11 +72,11 @@ SELECT
     gender,
     marital_status
 FROM workspace.silver.cust_info
-
+```
 - Armazena atributos do cliente
 
 Dimensão: Products
-
+```
 SQL
 CREATE TABLE workspace.gold.products AS
 SELECT 
@@ -90,7 +89,8 @@ SELECT
 FROM workspace.silver.prd_info t1
 JOIN workspace.silver.px_cat_g1v2 t2 
     ON LEFT(t1.prd_key, 5) = t2.id
-    
+```
+
 - Reúne informações de produtos e categorias 
 - Faz join inteligente usando os primeiros 5 caracteres da chave
 
@@ -98,7 +98,7 @@ JOIN workspace.silver.px_cat_g1v2 t2
 #### Tabela de Fatos
 
 Sales
-
+```
 SQL
 CREATE TABLE workspace.gold.sales AS
 SELECT 
@@ -110,7 +110,7 @@ SELECT
     due_date,
     price
 FROM workspace.silver.sales_details
-
+```
 - Armazena transações de vendas
 - Contém chaves estrangeiras para tabelas dimensionais
 - Otimizada para análises de vendas
@@ -124,4 +124,17 @@ Pré-requisitos:
 
 A execução toda da pipiline é automatizada pelas ferramentas dentro do Databricks como, Jobs e Pipelines, logo não sendo necessário executar cada notebook manualmente.
 
-** Por: Andreas de Carvalho, Engenheiro de dados Jr **
+
+
+
+
+
+
+
+
+** Créditos ao professor e disponibilizador dos dados usados, Data with Baara no seu Bootcamp de Databricks e engenharia de dados **
+
+#### * Por: Andreas de Carvalho, Engenheiro de dados Jr 
+
+
+
